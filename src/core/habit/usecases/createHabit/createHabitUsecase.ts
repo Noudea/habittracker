@@ -3,9 +3,25 @@ import Habit from '../../entities/Habit'
 import IHabit from '../../entities/IHabit'
 
 class CreateHabitUsecase implements ICreateHabit {
-  async execute({ name, startDate, daysPerWeek }: IHabit): Promise<Habit> {
-    const habit = new Habit({ name, daysPerWeek, startDate })
-    return habit
+  private repository: any
+  constructor({ repository }: any) {
+    this.repository = repository
+  }
+
+  async execute({
+    name,
+    startDate,
+    daysPerWeek,
+    color,
+  }: IHabit): Promise<Habit> {
+    const habit = new Habit({
+      name,
+      daysPerWeek,
+      startDate,
+      completionDates: [],
+      color,
+    })
+    return await this.repository.createHabit(habit)
   }
 }
 
