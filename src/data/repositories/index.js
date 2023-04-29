@@ -5,7 +5,7 @@ import RealmDataBaseAdapter from '../../infrastructure/adapters/RealmDataBaseAda
 const database = RealmDB.getInstance().getRealm()
 
 const realmDatabaseAdapter = new RealmDataBaseAdapter({
-  database,
+  database: database,
 })
 
 export default {

@@ -8,12 +8,7 @@ class CreateHabitUsecase implements ICreateHabit {
     this.repository = repository
   }
 
-  async execute({
-    name,
-    startDate,
-    daysPerWeek,
-    color,
-  }: IHabit): Promise<Habit> {
+  execute({ name, startDate, daysPerWeek, color }: IHabit): Promise<Habit> {
     const habit = new Habit({
       name,
       daysPerWeek,
@@ -21,7 +16,7 @@ class CreateHabitUsecase implements ICreateHabit {
       completionDates: [],
       color,
     })
-    return await this.repository.createHabit(habit)
+    return this.repository.create(habit)
   }
 }
 

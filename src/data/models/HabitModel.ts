@@ -1,6 +1,7 @@
 import Realm from 'realm'
+import IHabitModel from './IHabitModel'
 
-class HabitModel extends Realm.Object<HabitModel> {
+class HabitModel extends Realm.Object<HabitModel> implements IHabitModel {
   _id!: string
   name!: string
   daysPerWeek!: number

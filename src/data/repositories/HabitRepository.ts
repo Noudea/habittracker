@@ -1,9 +1,8 @@
 import IHabit from '../../core/habit/entities/IHabit'
+import { Repository } from './Repository'
+import IHabitModel from '../models/IHabitModel'
 
-class HabitRepository {
-  private readonly database: any
-  private readonly model: string
-
+class HabitRepository extends Repository<IHabit, IHabitModel> {
   constructor({
     databaseAdapter,
     model,
@@ -11,15 +10,7 @@ class HabitRepository {
     databaseAdapter: any
     model: string
   }) {
-    this.database = databaseAdapter
-    this.model = model
-  }
-
-  public async createHabit(habit: IHabit): Promise<any> {
-    return await this.database.create({
-      data: habit,
-      schema: this.model,
-    })
+    super({ databaseAdapter: databaseAdapter, model: model })
   }
 }
 
