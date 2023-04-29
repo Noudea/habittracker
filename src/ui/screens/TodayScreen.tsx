@@ -12,7 +12,7 @@ import {
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet'
 import { observer } from 'mobx-react-lite'
-import { habitStore } from '../../data/store/HabitStore'
+import { habitStore } from '../../infrastructure/store/HabitStore'
 
 const TodayScreen = observer((): JSX.Element => {
   const [name, setName] = useState('')

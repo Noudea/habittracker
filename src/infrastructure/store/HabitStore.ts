@@ -1,6 +1,6 @@
 import { makeObservable, observable, action } from 'mobx'
 import IHabit from '../../core/habit/entities/IHabit'
-import controllers from '../../infrastructure/controllers'
+import controllers from '../controllers'
 
 class HabitStore {
   habitController: any
