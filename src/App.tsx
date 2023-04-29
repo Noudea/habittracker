@@ -1,19 +1,18 @@
 import React from 'react'
-import {
-  SafeAreaView,
-  ScrollView,
-  StatusBar,
-  useColorScheme,
-} from 'react-native'
+import { useColorScheme } from 'react-native'
+import { NavigationContainer } from '@react-navigation/native'
+import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
+
+import TabNavigator from './ui/navigator/TabNavigator'
 
 function App(): JSX.Element {
   const isDarkMode = useColorScheme() === 'dark'
+  const Tab = createBottomTabNavigator()
 
   return (
-    <SafeAreaView>
-      <StatusBar barStyle={isDarkMode ? 'light-content' : 'dark-content'} />
-      <ScrollView contentInsetAdjustmentBehavior="automatic" />
-    </SafeAreaView>
+    <NavigationContainer>
+      <TabNavigator />
+    </NavigationContainer>
   )
 }
 
