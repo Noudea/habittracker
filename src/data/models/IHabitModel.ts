@@ -1,7 +1,7 @@
 interface IHabitModel {
   _id: string
   name: string
-  daysPerWeek: number
+  occurrences: number
   startDate: Date
   completionDates: Date[]
   color: string

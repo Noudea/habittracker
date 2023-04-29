@@ -16,7 +16,7 @@ import { habitStore } from '../../data/store/HabitStore'
 
 const TodayScreen = observer((): JSX.Element => {
   const [name, setName] = useState('')
-  const [daysPerWeek, setDaysPerWeek] = useState('')
+  const [occurrences, setOccurrences] = useState('')
   const [color, setColor] = useState('')
   // ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
@@ -31,10 +31,10 @@ const TodayScreen = observer((): JSX.Element => {
   const handleCreateHabit = () => {
     const habit = {
       name,
-      daysPerWeek: parseInt(daysPerWeek),
       startDate: new Date(),
       completionDates: [],
       color,
+      occurrences: parseInt(occurrences),
     }
     habitStore.createHabit(habit)
   }
@@ -61,8 +61,8 @@ const TodayScreen = observer((): JSX.Element => {
               <TextInput
                 placeholder={'numberperWeek'}
                 keyboardType="numeric"
-                value={daysPerWeek}
-                onChangeText={setDaysPerWeek}
+                value={occurrences}
+                onChangeText={setOccurrences}
               />
               <TextInput
                 placeholder={'color'}

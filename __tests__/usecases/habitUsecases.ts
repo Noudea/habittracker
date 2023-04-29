@@ -9,7 +9,7 @@ describe('usecases habit', () => {
   it('CreateHabitUsecase should create an habit', async () => {
     const habitToCreate = {
       name: 'Drink water',
-      daysPerWeek: 7,
+      occurrences: 7,
       startDate: new Date('2021-01-01'),
       color: '#000000',
     }
@@ -30,7 +30,7 @@ describe('usecases habit', () => {
     const habitToDelete = {
       _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
-      daysPerWeek: 7,
+      occurrences: 7,
       startDate: new Date('2022-01-01'),
       completionDates: [],
       color: '#000000',
@@ -51,7 +51,7 @@ describe('usecases habit', () => {
     const habitToFind = {
       _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
-      daysPerWeek: 7,
+      occurrences: 7,
       startDate: new Date('2022-01-01'),
       completionDates: [],
       color: '#000000',
@@ -72,7 +72,7 @@ describe('usecases habit', () => {
     const habitToUpdate = {
       _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
-      daysPerWeek: 7,
+      occurrences: 7,
       startDate: new Date('2022-01-01'),
       completionDates: [],
       color: '#000000',
@@ -80,7 +80,7 @@ describe('usecases habit', () => {
 
     const updatedHabitData = {
       name: 'Drink water',
-      daysPerWeek: 7,
+      occurrences: 7,
       startDate: new Date('2022-01-01'),
       completionDates: [],
       color: '#de155a',

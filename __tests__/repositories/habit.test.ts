@@ -11,7 +11,7 @@ describe('repository Habit', () => {
   it('should create a habit', async () => {
     const habitToCreate = {
       name: 'Drink water',
-      daysPerWeek: 7,
+      occurrences: 7,
       startDate: new Date('2021-01-01'),
       color: '#000000',
     }
@@ -32,7 +32,7 @@ describe('repository Habit', () => {
     expect(habitToFind).toEqual({
       _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
-      daysPerWeek: 7,
+      occurrences: 7,
       startDate: new Date('2022-01-01'),
       completionDates: [],
       color: '#000000',
@@ -44,7 +44,7 @@ describe('repository Habit', () => {
       id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       updatedObject: {
         name: 'Drink water',
-        daysPerWeek: 7,
+        occurrences: 7,
         startDate: new Date('2022-01-01'),
         completionDates: [],
         color: '#ff0e1b',
@@ -53,7 +53,7 @@ describe('repository Habit', () => {
     expect(updatedHabit).toEqual({
       _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
-      daysPerWeek: 7,
+      occurrences: 7,
       startDate: new Date('2022-01-01'),
       completionDates: [],
       color: '#ff0e1b',
@@ -64,7 +64,7 @@ describe('repository Habit', () => {
     const habitToDelete = {
       _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
-      daysPerWeek: 7,
+      occurrences: 7,
       startDate: new Date('2022-01-01'),
       completionDates: [],
       color: '#000000',

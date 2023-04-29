@@ -2,7 +2,7 @@ import IHabits from './IHabit'
 
 class Habit {
   public name: string
-  public daysPerWeek: number
+  public occurrences: number
   public startDate: Date
   public completionDates?: Date[]
   public color: string
@@ -10,13 +10,13 @@ class Habit {
   constructor({
     name,
     startDate,
-    daysPerWeek,
+    occurrences,
     completionDates,
     color,
   }: IHabits) {
     this.name = name
     this.startDate = startDate
-    this.daysPerWeek = daysPerWeek
+    this.occurrences = occurrences
     this.completionDates = completionDates || []
     this.color = color
   }

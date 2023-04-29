@@ -11,12 +11,12 @@ class CreateHabitUsecase implements ICreateHabit {
   async execute({
     name,
     startDate,
-    daysPerWeek,
+    occurrences,
     color,
   }: IHabit): Promise<Habit> {
     const habit = new Habit({
       name,
-      daysPerWeek,
+      occurrences,
       startDate,
       completionDates: [],
       color,

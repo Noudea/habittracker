@@ -18,7 +18,7 @@ const mockData = [
   {
     _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
     name: 'Drink water',
-    daysPerWeek: 7,
+    occurrences: 7,
     startDate: new Date('2022-01-01'),
     completionDates: [],
     color: '#000000',
@@ -26,7 +26,7 @@ const mockData = [
   {
     _id: '55359edc-a801-402c-8682-7618f97bcea8',
     name: 'Go for a run',
-    daysPerWeek: 3,
+    occurrences: 3,
     startDate: new Date('2022-01-01'),
     completionDates: [],
     color: '#FFFFFFF',

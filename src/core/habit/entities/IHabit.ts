@@ -1,7 +1,7 @@
 interface IHabit {
   name: string
   startDate: Date
-  daysPerWeek: number
+  occurrences: number
   completionDates?: Date[]
   color: string
 }
