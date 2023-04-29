@@ -1,4 +1,4 @@
-import IHabitModel from '../../../../data/models/IHabitModel'
+import IHabit from '../../entities/IHabit'
 
 class DeleteHabitUsecase {
   private repository: any
@@ -6,7 +6,7 @@ class DeleteHabitUsecase {
     this.repository = repository
   }
 
-  async execute({ habit }: { habit: IHabitModel }) {
+  async execute({ habit }: { habit: IHabit }) {
     return this.repository.delete(habit)
   }
 }

@@ -1,4 +1,5 @@
 import TestDB from '../mocks/TestDB'
+import Habit from '../../src/core/habit/entities/Habit'
 
 describe('repository Habit', () => {
   beforeAll(() => {
@@ -12,7 +13,7 @@ describe('repository Habit', () => {
     const habitsToFind = await TestDB.habitRepository.findAll()
     expect(habitsToFind).toEqual([
       {
-        _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+        id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
         name: 'Drink water',
         occurrences: 7,
         startDate: new Date('2022-01-01'),
@@ -20,7 +21,7 @@ describe('repository Habit', () => {
         color: '#000000',
       },
       {
-        _id: '55359edc-a801-402c-8682-7618f97bcea8',
+        id: '55359edc-a801-402c-8682-7618f97bcea8',
         name: 'Go for a run',
         occurrences: 3,
         startDate: new Date('2022-01-01'),
@@ -31,17 +32,18 @@ describe('repository Habit', () => {
   })
 
   it('should create a habit', async () => {
-    const habitToCreate = {
+    const habitToCreate = new Habit({
       name: 'Drink water',
       occurrences: 7,
-      startDate: new Date('2021-01-01'),
+      startDate: new Date('2022-01-01'),
+      completionDates: [],
       color: '#000000',
-    }
+    })
 
     const createdHabit = await TestDB.habitRepository.create(habitToCreate)
     expect(createdHabit).toEqual({
       ...habitToCreate,
-      _id: createdHabit._id,
+      id: createdHabit.id,
       completionDates: [],
     })
   })
@@ -52,7 +54,7 @@ describe('repository Habit', () => {
     })
 
     expect(habitToFind).toEqual({
-      _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+      id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
       occurrences: 7,
       startDate: new Date('2022-01-01'),
@@ -73,7 +75,7 @@ describe('repository Habit', () => {
       },
     })
     expect(updatedHabit).toEqual({
-      _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+      id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
       occurrences: 7,
       startDate: new Date('2022-01-01'),
@@ -84,7 +86,7 @@ describe('repository Habit', () => {
 
   it('should delete an habit', async () => {
     const habitToDelete = {
-      _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+      id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
       occurrences: 7,
       startDate: new Date('2022-01-01'),

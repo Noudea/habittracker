@@ -3,14 +3,14 @@ import HabitModel from './models/HabitModel'
 import Realm from 'realm'
 
 const migrationFunction = (oldRealm: any, newRealm: any) => {
-  if (oldRealm.schemaVersion < 2) {
+  if (oldRealm.schemaVersion < 3) {
     const oldObjects = oldRealm.objects('Habit')
     const newObjects = newRealm.objects('Habit')
 
     // Add the completionDates property to the schema
     newRealm.write(() => {
       for (let i = 0; i < oldObjects.length; i++) {
-        newObjects[i].occurences = oldObjects[i].occurrences
+        newObjects[i].id = oldObjects[i].id
       }
     })
   }
@@ -18,9 +18,9 @@ const migrationFunction = (oldRealm: any, newRealm: any) => {
 
 const databaseOptions = {
   schema: [HabitModel.schema],
-  schemaVersion: 3,
+  schemaVersion: 4,
   path: 'default.realm',
-  // migration: migrationFunction,
+  migration: migrationFunction,
 }
 
 class RealmDB {

@@ -15,10 +15,8 @@ class RealmDataBaseAdapter {
     objectToCreate: object
     schema: string
   }): Promise<any> {
-    const id = uuidv4()
-    const _objectToCreate = { ...objectToCreate, _id: id }
     const createdObject = await this.database.write(() => {
-      return this.database.create(schema, _objectToCreate)
+      return this.database.create(schema, objectToCreate)
     })
     return createdObject.toJSON()
   }
@@ -48,7 +46,7 @@ class RealmDataBaseAdapter {
     objectToUpdate: object
     schema: string
   }) {
-    const _objectToUpdate = { ...objectToUpdate, _id: id }
+    const _objectToUpdate = { ...objectToUpdate, id: id }
     const updatedObject = await this.database.write(() => {
       return this.database.create(schema, _objectToUpdate, 'modified')
     })
@@ -60,13 +58,13 @@ class RealmDataBaseAdapter {
     objectToDelete,
     schema,
   }: {
-    objectToDelete: { _id: string }
+    objectToDelete: { id: string }
     schema: string
   }) {
     await this.database.write(() => {
       const _objectToDelete = this.database.objectForPrimaryKey(
         schema,
-        objectToDelete._id
+        objectToDelete.id
       )
       this.database.delete(_objectToDelete)
     })

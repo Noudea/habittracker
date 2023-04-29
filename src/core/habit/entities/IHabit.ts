@@ -1,4 +1,5 @@
 interface IHabit {
+  id?: string
   name: string
   startDate: Date
   occurrences: number

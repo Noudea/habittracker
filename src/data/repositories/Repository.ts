@@ -1,6 +1,6 @@
 import IHabit from '../../core/habit/entities/IHabit'
 
-export abstract class Repository<entity, model> {
+export abstract class Repository<entity> {
   private readonly databaseAdapter: any
   private readonly model: string
 
@@ -15,18 +15,18 @@ export abstract class Repository<entity, model> {
     this.model = model
   }
 
-  public create(objectToCreate: entity): Promise<model> {
+  public create(objectToCreate: entity): Promise<entity> {
     return this.databaseAdapter.create({
       objectToCreate: objectToCreate,
       schema: this.model,
     })
   }
 
-  public find({ id }: { id: string }): Promise<model> {
+  public find({ id }: { id: string }): Promise<entity> {
     return this.databaseAdapter.findById({ id, schema: this.model })
   }
 
-  public findAll(): Promise<[model]> {
+  public findAll(): Promise<[entity]> {
     return this.databaseAdapter.findAll({ schema: this.model })
   }
 
@@ -36,7 +36,7 @@ export abstract class Repository<entity, model> {
   }: {
     id: string
     updatedObject: entity
-  }): Promise<model> {
+  }): Promise<entity> {
     return this.databaseAdapter.update({
       id,
       objectToUpdate: updatedObject,
@@ -44,7 +44,7 @@ export abstract class Repository<entity, model> {
     })
   }
 
-  delete({ objectToDelete }: { objectToDelete: model }): Promise<any> {
+  delete({ objectToDelete }: { objectToDelete: entity }): Promise<any> {
     return this.databaseAdapter.delete({
       objectToDelete,
       schema: this.model,

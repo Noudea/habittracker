@@ -21,7 +21,6 @@ class CreateHabitUsecase implements ICreateHabit {
       completionDates: [],
       color,
     })
-
     return await this.repository.create(habit)
   }
 }

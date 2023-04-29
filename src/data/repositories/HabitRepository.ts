@@ -1,8 +1,7 @@
 import IHabit from '../../core/habit/entities/IHabit'
 import { Repository } from './Repository'
-import IHabitModel from '../models/IHabitModel'
 
-class HabitRepository extends Repository<IHabit, IHabitModel> {
+class HabitRepository extends Repository<IHabit> {
   constructor({
     databaseAdapter,
     model,

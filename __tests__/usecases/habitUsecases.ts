@@ -1,35 +1,39 @@
 import CreateHabitUsecase from '../../src/core/habit/usecases/createHabit/createHabitUsecase'
 import DeleteHabitUsecase from '../../src/core/habit/usecases/deleteHabit/DeleteHabitUsecase'
-import IHabitModel from '../../src/data/models/IHabitModel'
 import IHabit from '../../src/core/habit/entities/IHabit'
 import FindHabitUsecase from '../../src/core/habit/usecases/findHabit/FindHabitUsecase'
 import UpdateHabitUsecase from '../../src/core/habit/usecases/updateHabit/UpdateHabitUsecase'
 import FindAllHabitsUsecase from '../../src/core/habit/usecases/findAllHabits/FindAllHabitsUsecase'
+import Habit from '../../src/core/habit/entities/Habit'
 
 describe('usecases habit', () => {
   it('CreateHabitUsecase should create an habit', async () => {
-    const habitToCreate = {
+    const habitToCreate = new Habit({
       name: 'Drink water',
       occurrences: 7,
       startDate: new Date('2021-01-01'),
       color: '#000000',
-    }
+    })
     const createHabitUseCase = new CreateHabitUsecase({
       repository: {
         create: (habit: IHabit) => {
           return {
-            ...habit,
+            ...habitToCreate,
             completionDates: [],
           }
         },
       },
     })
     const habit = await createHabitUseCase.execute(habitToCreate)
-    expect(habit).toEqual({ ...habitToCreate, completionDates: [] })
+    expect(habit).toEqual({
+      ...habitToCreate,
+      id: habitToCreate.id,
+      completionDates: [],
+    })
   })
   it('DeleteHabitUsecase should delete an habit', async () => {
     const habitToDelete = {
-      _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+      id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
       occurrences: 7,
       startDate: new Date('2022-01-01'),
@@ -38,7 +42,7 @@ describe('usecases habit', () => {
     }
     const deleteHabitUseCase = new DeleteHabitUsecase({
       repository: {
-        delete: ({ objectToDelete }: { objectToDelete: IHabitModel }) => {
+        delete: ({ objectToDelete }: { objectToDelete: IHabit }) => {
           return habitToDelete
         },
       },
@@ -50,7 +54,7 @@ describe('usecases habit', () => {
   })
   it('FindHabitUsecase should find an habit', async () => {
     const habitToFind = {
-      _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+      id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
       occurrences: 7,
       startDate: new Date('2022-01-01'),
@@ -65,13 +69,13 @@ describe('usecases habit', () => {
       },
     })
     const habit = await findHabitUseCase.execute({
-      id: habitToFind._id,
+      id: habitToFind.id,
     })
     expect(habit).toEqual(habitToFind)
   })
   it('UpdateHabitUsecase should update an habit', async () => {
     const habitToUpdate = {
-      _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+      id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       name: 'Drink water',
       occurrences: 7,
       startDate: new Date('2022-01-01'),
@@ -93,7 +97,7 @@ describe('usecases habit', () => {
           habitToUpdate,
         }: {
           id: string
-          habitToUpdate: IHabitModel
+          habitToUpdate: IHabit
         }) => {
           return updatedHabitData
         },
@@ -106,7 +110,7 @@ describe('usecases habit', () => {
   it('FindAllHabitsUsecase should find all habits', async () => {
     const habitsToFind = [
       {
-        _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+        id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
         name: 'Drink water',
         occurrences: 7,
         startDate: new Date('2022-01-01'),
@@ -114,7 +118,7 @@ describe('usecases habit', () => {
         color: '#000000',
       },
       {
-        _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+        id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
         name: 'Drink water',
         occurrences: 7,
         startDate: new Date('2022-01-01'),

@@ -1,6 +1,8 @@
 import IHabit from './IHabit'
+import { v4 as uuidv4 } from 'uuid'
 
 class Habit {
+  public id?: string
   public name: string
   public occurrences: number
   public startDate: Date
@@ -14,6 +16,7 @@ class Habit {
     completionDates,
     color,
   }: IHabit) {
+    this.id = uuidv4()
     this.name = name
     this.startDate = startDate
     this.occurrences = occurrences
