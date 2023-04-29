@@ -8,6 +8,28 @@ describe('repository Habit', () => {
     TestDB.unseedDB()
   })
 
+  it('should find all habits', async () => {
+    const habitsToFind = await TestDB.habitRepository.findAll()
+    expect(habitsToFind).toEqual([
+      {
+        _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+        name: 'Drink water',
+        occurrences: 7,
+        startDate: new Date('2022-01-01'),
+        completionDates: [],
+        color: '#000000',
+      },
+      {
+        _id: '55359edc-a801-402c-8682-7618f97bcea8',
+        name: 'Go for a run',
+        occurrences: 3,
+        startDate: new Date('2022-01-01'),
+        completionDates: [],
+        color: '#FFFFFFF',
+      },
+    ])
+  })
+
   it('should create a habit', async () => {
     const habitToCreate = {
       name: 'Drink water',

@@ -15,35 +15,39 @@ export abstract class Repository<entity, model> {
     this.model = model
   }
 
-  public async create(objectToCreate: entity): Promise<model> {
+  public create(objectToCreate: entity): Promise<model> {
     console.log('repository', objectToCreate)
 
-    return await this.databaseAdapter.create({
+    return this.databaseAdapter.create({
       objectToCreate: objectToCreate,
       schema: this.model,
     })
   }
 
-  public find({ id }: { id: string }): model {
+  public find({ id }: { id: string }): Promise<model> {
     return this.databaseAdapter.findById({ id, schema: this.model })
   }
 
-  public async update({
+  public findAll(): Promise<[model]> {
+    return this.databaseAdapter.findAll({ schema: this.model })
+  }
+
+  public update({
     id,
     updatedObject,
   }: {
     id: string
     updatedObject: entity
   }): Promise<model> {
-    return await this.databaseAdapter.update({
+    return this.databaseAdapter.update({
       id,
       objectToUpdate: updatedObject,
       schema: this.model,
     })
   }
 
-  async delete({ objectToDelete }: { objectToDelete: model }): Promise<any> {
-    return await this.databaseAdapter.delete({
+  delete({ objectToDelete }: { objectToDelete: model }): Promise<any> {
+    return this.databaseAdapter.delete({
       objectToDelete,
       schema: this.model,
     })

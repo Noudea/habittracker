@@ -4,6 +4,7 @@ import IHabitModel from '../../src/data/models/IHabitModel'
 import IHabit from '../../src/core/habit/entities/IHabit'
 import FindHabitUsecase from '../../src/core/habit/usecases/findHabit/FindHabitUsecase'
 import UpdateHabitUsecase from '../../src/core/habit/usecases/updateHabit/UpdateHabitUsecase'
+import FindAllHabitsUsecase from '../../src/core/habit/usecases/findAllHabits/FindAllHabitsUsecase'
 
 describe('usecases habit', () => {
   it('CreateHabitUsecase should create an habit', async () => {
@@ -101,6 +102,36 @@ describe('usecases habit', () => {
     })
     const updatedHabit = await updateHabitUseCase.execute(habitToUpdate)
     expect(updatedHabitData).toEqual(updatedHabit)
+  })
+
+  it('FindAllHabitsUsecase should find all habits', async () => {
+    const habitsToFind = [
+      {
+        _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+        name: 'Drink water',
+        occurrences: 7,
+        startDate: new Date('2022-01-01'),
+        completionDates: [],
+        color: '#000000',
+      },
+      {
+        _id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+        name: 'Drink water',
+        occurrences: 7,
+        startDate: new Date('2022-01-01'),
+        completionDates: [],
+        color: '#000000',
+      },
+    ]
+    const findAllHabitsUseCase = new FindAllHabitsUsecase({
+      repository: {
+        findAll: () => {
+          return habitsToFind
+        },
+      },
+    })
+    const habits = await findAllHabitsUseCase.execute()
+    expect(habits).toEqual(habitsToFind)
   })
 })
 

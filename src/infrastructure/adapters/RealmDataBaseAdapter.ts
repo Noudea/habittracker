@@ -17,7 +17,7 @@ class RealmDataBaseAdapter {
   }): Promise<any> {
     const id = uuidv4()
     const _objectToCreate = { ...objectToCreate, _id: id }
-    const createdObject = this.database.write(() => {
+    const createdObject = await this.database.write(() => {
       return this.database.create(schema, _objectToCreate)
     })
     return createdObject.toJSON()
@@ -29,6 +29,14 @@ class RealmDataBaseAdapter {
       return undefined
     }
     return object.toJSON()
+  }
+
+  async findAll({ schema }: { schema: string }): Promise<[] | undefined> {
+    const objects = await this.database.objects(schema)
+    if (!objects) {
+      return undefined
+    }
+    return objects.toJSON()
   }
 
   async update({
