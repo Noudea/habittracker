@@ -5,7 +5,7 @@ import { createBottomTabNavigator } from '@react-navigation/bottom-tabs'
 
 import TabNavigator from './ui/navigator/TabNavigator'
 
-function App(): JSX.Element {
+const App = (): JSX.Element => {
   const isDarkMode = useColorScheme() === 'dark'
   const Tab = createBottomTabNavigator()
 

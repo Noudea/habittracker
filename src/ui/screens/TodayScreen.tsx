@@ -1,11 +1,23 @@
-import { Text, ScrollView, Button, View, StyleSheet } from 'react-native'
-import React, { useCallback, useMemo, useRef } from 'react'
+import {
+  Text,
+  ScrollView,
+  Button,
+  View,
+  StyleSheet,
+  TextInput,
+} from 'react-native'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet'
+import { observer } from 'mobx-react-lite'
+import { habitStore } from '../../data/store/HabitStore'
 
-const TodayScreen = (): JSX.Element => {
+const TodayScreen = observer((): JSX.Element => {
+  const [name, setName] = useState('')
+  const [daysPerWeek, setDaysPerWeek] = useState('')
+  const [color, setColor] = useState('')
   // ref
   const bottomSheetModalRef = useRef<BottomSheetModal>(null)
   // variables
@@ -16,6 +28,16 @@ const TodayScreen = (): JSX.Element => {
     bottomSheetModalRef.current?.present()
   }, [])
   const handleSheetChanges = useCallback((index: number) => {}, [])
+  const handleCreateHabit = () => {
+    const habit = {
+      name,
+      daysPerWeek: parseInt(daysPerWeek),
+      startDate: new Date(),
+      completionDates: [],
+      color,
+    }
+    habitStore.createHabit(habit)
+  }
 
   return (
     <BottomSheetModalProvider>
@@ -31,13 +53,30 @@ const TodayScreen = (): JSX.Element => {
           >
             <View style={styles.contentContainer}>
               <Text>Awesome 🎉</Text>
+              <TextInput
+                placeholder={'name'}
+                value={name}
+                onChangeText={setName}
+              />
+              <TextInput
+                placeholder={'numberperWeek'}
+                keyboardType="numeric"
+                value={daysPerWeek}
+                onChangeText={setDaysPerWeek}
+              />
+              <TextInput
+                placeholder={'color'}
+                value={color}
+                onChangeText={setColor}
+              />
+              <Button onPress={handleCreateHabit} title="Create Habit" />
             </View>
           </BottomSheetModal>
         </View>
       </ScrollView>
     </BottomSheetModalProvider>
   )
-}
+})
 
 const styles = StyleSheet.create({
   container: {

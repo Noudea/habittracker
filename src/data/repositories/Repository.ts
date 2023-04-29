@@ -16,13 +16,15 @@ export abstract class Repository<entity, model> {
   }
 
   public async create(objectToCreate: entity): Promise<model> {
+    console.log('repository', objectToCreate)
+
     return await this.databaseAdapter.create({
       objectToCreate: objectToCreate,
       schema: this.model,
     })
   }
 
-  public async find({ id }: { id: string }): Promise<model> {
+  public find({ id }: { id: string }): model {
     return this.databaseAdapter.findById({ id, schema: this.model })
   }
 
