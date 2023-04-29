@@ -7,10 +7,11 @@ const database = RealmDB.getInstance().getRealm()
 const realmDatabaseAdapter = new RealmDataBaseAdapter({
   database: database,
 })
-
-export default {
+const repositories = {
   habitRepository: new HabitRepository({
     databaseAdapter: realmDatabaseAdapter,
     model: 'Habit',
   }),
 }
+
+export default repositories
