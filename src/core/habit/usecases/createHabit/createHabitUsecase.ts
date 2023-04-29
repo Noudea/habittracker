@@ -21,8 +21,7 @@ class CreateHabitUsecase implements ICreateHabit {
       completionDates: [],
       color,
     })
-    console.log('usecase', habit)
-    console.log('usecase', this.repository)
+
     return await this.repository.create(habit)
   }
 }

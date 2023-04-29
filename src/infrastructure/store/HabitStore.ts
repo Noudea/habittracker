@@ -21,7 +21,6 @@ class HabitStore {
   }
 
   async createHabit(habit: IHabit) {
-    console.log('store')
     const createdHabit = await this.habitController.createHabit(habit)
     this.habits.push(createdHabit)
   }

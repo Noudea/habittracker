@@ -1,4 +1,4 @@
-import IHabits from './IHabit'
+import IHabit from './IHabit'
 
 class Habit {
   public name: string
@@ -13,7 +13,7 @@ class Habit {
     occurrences,
     completionDates,
     color,
-  }: IHabits) {
+  }: IHabit) {
     this.name = name
     this.startDate = startDate
     this.occurrences = occurrences

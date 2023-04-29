@@ -16,8 +16,6 @@ export abstract class Repository<entity, model> {
   }
 
   public create(objectToCreate: entity): Promise<model> {
-    console.log('repository', objectToCreate)
-
     return this.databaseAdapter.create({
       objectToCreate: objectToCreate,
       schema: this.model,

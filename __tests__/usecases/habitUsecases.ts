@@ -95,7 +95,6 @@ describe('usecases habit', () => {
           id: string
           habitToUpdate: IHabitModel
         }) => {
-          console.log('updatedObject', updatedHabitData)
           return updatedHabitData
         },
       },
