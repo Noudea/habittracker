@@ -25,7 +25,6 @@ const mockData = [
     completionDates: [
       new CompletionDate({
         date: new Date('2022-01-01'),
-        habitId: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       }),
     ],
     color: '#000000',

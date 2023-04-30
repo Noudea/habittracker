@@ -35,7 +35,7 @@ export abstract class Repository<entity> {
     })
   }
 
-  delete({ objectToDelete }: { objectToDelete: entity }): Promise<any> {
+  public delete({ objectToDelete }: { objectToDelete: entity }): Promise<any> {
     return this.databaseAdapter.delete({
       objectToDelete,
       schema: this.model,

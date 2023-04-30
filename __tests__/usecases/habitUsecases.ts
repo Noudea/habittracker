@@ -5,32 +5,32 @@ import FindHabitUsecase from '../../src/core/habit/usecases/findHabit/FindHabitU
 import UpdateHabitUsecase from '../../src/core/habit/usecases/updateHabit/UpdateHabitUsecase'
 import FindAllHabitsUsecase from '../../src/core/habit/usecases/findAllHabits/FindAllHabitsUsecase'
 import Habit from '../../src/core/habit/entities/Habit'
-import habitUseCases from '../../src/core/habit/usecases'
 import AddCompletionDate from '../../src/core/habit/usecases/addCompletionDateToHabit/AddCompletionDate'
 
 describe('usecases habit', () => {
   it('CreateHabitUsecase should create an habit', async () => {
-    const habitToCreate = new Habit({
+    const habitToCreate = {
       name: 'Drink water',
       occurrences: 7,
       startDate: new Date('2021-01-01'),
       color: '#000000',
       completionDates: [],
-    })
+    }
     const createHabitUseCase = new CreateHabitUsecase({
       repository: {
         create: (habit: IHabit) => {
           return {
+            id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
             ...habitToCreate,
             completionDates: [],
           }
         },
       },
     })
-    const habit = await createHabitUseCase.execute(habitToCreate)
+    const habit = createHabitUseCase.execute(habitToCreate)
     expect(habit).toEqual({
       ...habitToCreate,
-      id: habitToCreate.id,
+      id: habit.id,
       completionDates: [],
     })
   })
@@ -95,13 +95,7 @@ describe('usecases habit', () => {
     }
     const updateHabitUseCase = new UpdateHabitUsecase({
       repository: {
-        update: ({
-          id,
-          habitToUpdate,
-        }: {
-          id: string
-          habitToUpdate: IHabit
-        }) => {
+        update: ({ habitToUpdate }: { habitToUpdate: IHabit }) => {
           return updatedHabitData
         },
       },

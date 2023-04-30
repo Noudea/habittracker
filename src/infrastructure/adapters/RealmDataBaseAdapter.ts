@@ -18,6 +18,7 @@ class RealmDataBaseAdapter {
     const createdObject = await this.database.write(() => {
       return this.database.create(schema, objectToCreate)
     })
+
     return createdObject.toJSON()
   }
 
@@ -47,7 +48,6 @@ class RealmDataBaseAdapter {
     const updatedObject = await this.database.write(() => {
       return this.database.create(schema, objectToUpdate, 'modified')
     })
-
     return updatedObject.toJSON()
   }
 
