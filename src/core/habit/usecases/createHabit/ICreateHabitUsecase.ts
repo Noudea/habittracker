@@ -3,7 +3,7 @@ import IHabit from '../../entities/IHabit'
 import Habit from '../../entities/Habit'
 
 interface CreateHabitUsecase {
-  execute({ name, startDate, occurrences }: IHabit): Promise<Habit>
+  execute({ name, startDate, occurrences }: IHabit): Habit
 }
 
 export default CreateHabitUsecase

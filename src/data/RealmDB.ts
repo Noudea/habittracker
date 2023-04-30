@@ -1,26 +1,34 @@
 // Define the database configuration
 import HabitModel from './models/HabitModel'
 import Realm from 'realm'
+import CompletionDateModel from './models/CompletionDateModel'
 
-const migrationFunction = (oldRealm: any, newRealm: any) => {
-  if (oldRealm.schemaVersion < 3) {
-    const oldObjects = oldRealm.objects('Habit')
-    const newObjects = newRealm.objects('Habit')
-
-    // Add the completionDates property to the schema
-    newRealm.write(() => {
-      for (let i = 0; i < oldObjects.length; i++) {
-        newObjects[i].id = oldObjects[i].id
-      }
-    })
-  }
-}
+// const migrationFunction = (oldRealm: any, newRealm: any) => {
+//   if (oldRealm.schemaVersion < 4) {
+//     const oldObjects = oldRealm.objects('Habit')
+//     const newObjects = newRealm.objects('Habit')
+//
+//     // Add the completionDates property to the schema
+//     newRealm.write(() => {
+//       for (let i = 0; i < oldObjects.length; i++) {
+//         const oldObject = oldObjects[i]
+//         const newObject = newObjects[i]
+//
+//         const completionDates = oldObject.completionDates.map((date) => ({
+//           date,
+//         }))
+//
+//         newObject.completionDates.push(...completionDates)
+//       }
+//     })
+//   }
+// }
 
 const databaseOptions = {
-  schema: [HabitModel.schema],
-  schemaVersion: 4,
+  schema: [HabitModel.schema, CompletionDateModel.schema],
+  schemaVersion: 5,
   path: 'default.realm',
-  migration: migrationFunction,
+  // migration: migrationFunction,
 }
 
 class RealmDB {

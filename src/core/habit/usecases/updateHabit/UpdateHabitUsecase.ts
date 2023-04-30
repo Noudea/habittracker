@@ -7,7 +7,7 @@ class UpdateHabitUsecase {
     this.repository = repository
   }
 
-  async execute(habit: IHabit): Promise<Habit> {
+  execute(habit: IHabit): Habit {
     return this.repository.update(habit)
   }
 }

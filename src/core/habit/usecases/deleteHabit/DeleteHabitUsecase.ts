@@ -6,7 +6,7 @@ class DeleteHabitUsecase {
     this.repository = repository
   }
 
-  async execute({ habit }: { habit: IHabit }) {
+  execute({ habit }: { habit: IHabit }): IHabit {
     return this.repository.delete(habit)
   }
 }

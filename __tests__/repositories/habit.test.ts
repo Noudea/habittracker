@@ -1,9 +1,10 @@
 import TestDB from '../mocks/TestDB'
 import Habit from '../../src/core/habit/entities/Habit'
 
+let seededDB: Array<Record<string, unknown>>
 describe('repository Habit', () => {
-  beforeAll(() => {
-    TestDB.seedDB()
+  beforeAll(async () => {
+    seededDB = await TestDB.seedDB()
   })
   afterAll(() => {
     TestDB.unseedDB()
@@ -11,24 +12,7 @@ describe('repository Habit', () => {
 
   it('should find all habits', async () => {
     const habitsToFind = await TestDB.habitRepository.findAll()
-    expect(habitsToFind).toEqual([
-      {
-        id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
-        name: 'Drink water',
-        occurrences: 7,
-        startDate: new Date('2022-01-01'),
-        completionDates: [],
-        color: '#000000',
-      },
-      {
-        id: '55359edc-a801-402c-8682-7618f97bcea8',
-        name: 'Go for a run',
-        occurrences: 3,
-        startDate: new Date('2022-01-01'),
-        completionDates: [],
-        color: '#FFFFFFF',
-      },
-    ])
+    expect(habitsToFind).toEqual(seededDB)
   })
 
   it('should create a habit', async () => {
@@ -50,23 +34,16 @@ describe('repository Habit', () => {
 
   it('should find a habit by id', async () => {
     const habitToFind = await TestDB.habitRepository.find({
-      id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+      id: seededDB[0].id as string,
     })
 
-    expect(habitToFind).toEqual({
-      id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
-      name: 'Drink water',
-      occurrences: 7,
-      startDate: new Date('2022-01-01'),
-      completionDates: [],
-      color: '#000000',
-    })
+    expect(habitToFind).toEqual(seededDB[0])
   })
 
   it('should update an habit', async () => {
     const updatedHabit = await TestDB.habitRepository.update({
-      id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
       updatedObject: {
+        id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
         name: 'Drink water',
         occurrences: 7,
         startDate: new Date('2022-01-01'),

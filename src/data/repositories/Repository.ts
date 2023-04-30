@@ -1,5 +1,3 @@
-import IHabit from '../../core/habit/entities/IHabit'
-
 export abstract class Repository<entity> {
   private readonly databaseAdapter: any
   private readonly model: string
@@ -30,15 +28,8 @@ export abstract class Repository<entity> {
     return this.databaseAdapter.findAll({ schema: this.model })
   }
 
-  public update({
-    id,
-    updatedObject,
-  }: {
-    id: string
-    updatedObject: entity
-  }): Promise<entity> {
+  public update({ updatedObject }: { updatedObject: entity }): Promise<entity> {
     return this.databaseAdapter.update({
-      id,
       objectToUpdate: updatedObject,
       schema: this.model,
     })

@@ -2,6 +2,9 @@ import TestRealmDB from './TestRealmDB'
 import RealmDataBaseAdapter from '../../src/infrastructure/adapters/RealmDataBaseAdapter'
 import HabitRepository from '../../src/data/repositories/HabitRepository'
 import RealmDB from '../../src/data/RealmDB'
+import Habit from '../../src/core/habit/entities/Habit'
+import CompletionDate from '../../src/core/habit/entities/CompletionDate'
+import completionDate from '../../src/core/habit/entities/CompletionDate'
 
 //const databaseTest = TestRealmDB.getInstance().getRealm()
 const database = RealmDB.getInstance().getRealm()
@@ -15,22 +18,25 @@ const habitRepository = new HabitRepository({
 })
 
 const mockData = [
-  {
-    id: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+  new Habit({
     name: 'Drink water',
     occurrences: 7,
     startDate: new Date('2022-01-01'),
-    completionDates: [],
+    completionDates: [
+      new CompletionDate({
+        date: new Date('2022-01-01'),
+        habitId: 'db05d88c-70b8-4bca-a8ba-fa33358daa1d',
+      }),
+    ],
     color: '#000000',
-  },
-  {
-    id: '55359edc-a801-402c-8682-7618f97bcea8',
+  }),
+  new Habit({
     name: 'Go for a run',
     occurrences: 3,
     startDate: new Date('2022-01-01'),
     completionDates: [],
     color: '#FFFFFFF',
-  },
+  }),
 ]
 const seedDB = async () => {
   database.write(() => {
@@ -38,12 +44,17 @@ const seedDB = async () => {
       database.create('Habit', habit)
     })
   })
+  const habits = database.objects('Habit')
+  return habits.toJSON()
 }
 
 const unseedDB = async () => {
   database.write(() => {
     const habits = database.objects('Habit')
+    const completionDates = database.objects('CompletionDate')
+
     database.delete(habits)
+    database.delete(completionDates)
   })
 }
 

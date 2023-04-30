@@ -1,14 +1,7 @@
 import Realm from 'realm'
 import IHabit from '../../core/habit/entities/IHabit'
 
-class HabitModel extends Realm.Object<HabitModel> implements IHabit {
-  id!: string
-  name!: string
-  occurrences!: number
-  startDate!: Date
-  completionDates!: Date[]
-  color!: string
-
+class HabitModel extends Realm.Object<HabitModel> {
   static schema = {
     name: 'Habit',
     primaryKey: 'id',
@@ -17,7 +10,7 @@ class HabitModel extends Realm.Object<HabitModel> implements IHabit {
       name: { type: 'string' },
       occurrences: { type: 'int' },
       startDate: { type: 'date' },
-      completionDates: { type: 'date[]' },
+      completionDates: { type: 'list', objectType: 'CompletionDate' },
       color: { type: 'string' },
     },
   }

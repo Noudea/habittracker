@@ -3,7 +3,7 @@ import IHabit from '../../entities/IHabit'
 import Habit from '../../entities/Habit'
 
 interface DeleteHabitUsecase {
-  execute(habit: IHabit): Promise<Habit>
+  execute(habit: IHabit): Habit
 }
 
 export default DeleteHabitUsecase

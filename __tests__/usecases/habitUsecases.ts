@@ -5,6 +5,8 @@ import FindHabitUsecase from '../../src/core/habit/usecases/findHabit/FindHabitU
 import UpdateHabitUsecase from '../../src/core/habit/usecases/updateHabit/UpdateHabitUsecase'
 import FindAllHabitsUsecase from '../../src/core/habit/usecases/findAllHabits/FindAllHabitsUsecase'
 import Habit from '../../src/core/habit/entities/Habit'
+import habitUseCases from '../../src/core/habit/usecases'
+import AddCompletionDate from '../../src/core/habit/usecases/addCompletionDateToHabit/AddCompletionDate'
 
 describe('usecases habit', () => {
   it('CreateHabitUsecase should create an habit', async () => {
@@ -13,6 +15,7 @@ describe('usecases habit', () => {
       occurrences: 7,
       startDate: new Date('2021-01-01'),
       color: '#000000',
+      completionDates: [],
     })
     const createHabitUseCase = new CreateHabitUsecase({
       repository: {
@@ -106,7 +109,6 @@ describe('usecases habit', () => {
     const updatedHabit = await updateHabitUseCase.execute(habitToUpdate)
     expect(updatedHabitData).toEqual(updatedHabit)
   })
-
   it('FindAllHabitsUsecase should find all habits', async () => {
     const habitsToFind = [
       {
@@ -135,6 +137,37 @@ describe('usecases habit', () => {
     })
     const habits = await findAllHabitsUseCase.execute()
     expect(habits).toEqual(habitsToFind)
+  })
+  it('should add a completion date to an habit', async () => {
+    const habitToUpdate = new Habit({
+      name: 'Drink water',
+      occurrences: 7,
+      startDate: new Date('2022-01-01'),
+      color: '#000000',
+      completionDates: [],
+    })
+
+    const updatedHabitData = {
+      name: 'Drink water',
+      occurrences: 7,
+      startDate: new Date('2022-01-01'),
+      completionDates: [],
+      color: '#de155a',
+    }
+    const mockAddCompletionDate = new AddCompletionDate({
+      repository: {
+        update: () => {
+          return updatedHabitData
+        },
+        find: ({ id }: { id: string }) => {
+          return habitToUpdate
+        },
+      },
+    })
+    const updatedHabit = await mockAddCompletionDate.execute({
+      id: habitToUpdate.id as string,
+    })
+    expect(updatedHabitData).toEqual(updatedHabit)
   })
 })
 

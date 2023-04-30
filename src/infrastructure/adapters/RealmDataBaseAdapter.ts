@@ -38,17 +38,14 @@ class RealmDataBaseAdapter {
   }
 
   async update({
-    id,
     objectToUpdate,
     schema,
   }: {
-    id: string
     objectToUpdate: object
     schema: string
   }) {
-    const _objectToUpdate = { ...objectToUpdate, id: id }
     const updatedObject = await this.database.write(() => {
-      return this.database.create(schema, _objectToUpdate, 'modified')
+      return this.database.create(schema, objectToUpdate, 'modified')
     })
 
     return updatedObject.toJSON()

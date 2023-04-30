@@ -1,9 +1,11 @@
+import ICompletionDate from './ICompletionDate'
+
 interface IHabit {
   id?: string
   name: string
   startDate: Date
   occurrences: number
-  completionDates?: Date[]
+  completionDates: ICompletionDate[]
   color: string
 }
 
