@@ -24,7 +24,7 @@ export abstract class Repository<entity> {
     return this.databaseAdapter.findById({ id, schema: this.model })
   }
 
-  public findAll(): Promise<[entity]> {
+  public async findAll(): Promise<entity> {
     return this.databaseAdapter.findAll({ schema: this.model })
   }
 

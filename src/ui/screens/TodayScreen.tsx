@@ -6,7 +6,7 @@ import {
   StyleSheet,
   TextInput,
 } from 'react-native'
-import React, { useCallback, useMemo, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -15,6 +15,11 @@ import { observer } from 'mobx-react-lite'
 import { habitStore } from '../../infrastructure/store/HabitStore'
 
 const TodayScreen = observer((): JSX.Element => {
+  // useEffect(() => {
+  //   habitStore.init().then(() => {
+  //     console.log('HabitStore initialized')
+  //   })
+  // }, [])
   const [name, setName] = useState('')
   const [occurrences, setOccurrences] = useState('')
   const [color, setColor] = useState('')
@@ -43,6 +48,14 @@ const TodayScreen = observer((): JSX.Element => {
     <BottomSheetModalProvider>
       <ScrollView>
         <Text>Today Screen</Text>
+        {habitStore.habits.map((habit, index) => (
+          <View key={habit.id}>
+            <Text>
+              {habit.name} {habit.occurrences}
+            </Text>
+            <Button title="add CompletionDates" />
+          </View>
+        ))}
         <View style={styles.container}>
           <Button onPress={handlePresentModalPress} title="Present Modal" />
           <BottomSheetModal

@@ -1,36 +1,59 @@
-import { makeObservable, observable, action } from 'mobx'
-import IHabit from '../../core/habit/entities/IHabit'
+import { makeObservable, observable, action, reaction } from 'mobx'
 import controllers from '../controllers'
+import RealmDB from '../../data/RealmDB'
+import IHabit from '../../core/habit/entities/IHabit'
+const database = RealmDB.getInstance().getRealm()
 
 class HabitStore {
   habitController: any
-  habits: IHabit[] = []
+  habits: any[]
   constructor() {
     this.habitController = controllers.habit
+    this.habits = []
+    this.init().then(() => {
+      console.log('---------------------init store---------------')
+    })
+
+    // reaction(
+    //   () => database.objects('Habit').length,
+    //   () => {
+    //     console.log('reaction')
+    //   }
+    // )
 
     makeObservable(
       this,
       {
-        // habitController: observable,
         habits: observable,
-        createHabit: action,
-        getHabits: action,
+        init: action,
+        addHabits: action,
+        addHabit: action,
+
+        // habitController: observable,
       },
-      { autoBind: true },
+      { autoBind: true }
     )
+  }
+
+  async init() {
+    const habits = await this.habitController.getHabits()
+    this.addHabits(habits)
+    console.log('----------------HabitsStore------------------', this.habits)
+  }
+
+  addHabits(habits: any[]) {
+    habits.forEach((habit) => {
+      this.habits.push(habit)
+    })
+  }
+
+  addHabit(habit: IHabit) {
+    this.habits.push(habit)
   }
 
   async createHabit(habit: IHabit) {
     const createdHabit = await this.habitController.createHabit(habit)
-    this.habits.push(createdHabit)
-  }
-
-  getHabit({ id }: { id: string }) {
-    return this.habitController.findHabit({ id })
-  }
-
-  getHabits() {
-    return this.habitController.getHabits()
+    this.addHabit(createdHabit)
   }
 }
 

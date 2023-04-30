@@ -30,9 +30,9 @@ class RealmDataBaseAdapter {
     return object.toJSON()
   }
 
-  async findAll({ schema }: { schema: string }): Promise<[] | undefined> {
+  async findAll({ schema }: { schema: string }) {
     const objects = await this.database.objects(schema)
-    if (!objects) {
+    if (objects.length === 0) {
       return undefined
     }
     return objects.toJSON()
