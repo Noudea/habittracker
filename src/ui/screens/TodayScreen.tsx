@@ -1,38 +1,33 @@
-import {
-  Text,
-  ScrollView,
-  Button,
-  View,
-  StyleSheet,
-  TextInput,
-} from 'react-native'
-import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react'
+import { Text, ScrollView, Button, View, StyleSheet } from 'react-native'
+import React, { useCallback, useRef, useState } from 'react'
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
 } from '@gorhom/bottom-sheet'
 import { observer } from 'mobx-react-lite'
 import { habitStore } from '../../infrastructure/store/HabitStore'
+import HabitCard from '../components/organisms/HabitCard'
+import CreateHabitModal from '../components/organisms/CreateHabitModal'
+import HabitDetailsModal from '../components/organisms/HabitDetailsModal'
 
 const TodayScreen = observer((): JSX.Element => {
-  // useEffect(() => {
-  //   habitStore.init().then(() => {
-  //     console.log('HabitStore initialized')
-  //   })
-  // }, [])
   const [name, setName] = useState('')
   const [occurrences, setOccurrences] = useState('')
   const [color, setColor] = useState('')
+
   // ref
-  const bottomSheetModalRef = useRef<BottomSheetModal>(null)
-  // variables
-  const snapPoints = useMemo(() => ['100%', '100%'], [])
+  const createHabitModalRef = useRef<BottomSheetModal>(null)
+  const habitDetailsModalRef = useRef<BottomSheetModal>(null)
 
   // callbacks
   const handlePresentModalPress = useCallback(() => {
-    bottomSheetModalRef.current?.present()
+    createHabitModalRef.current?.present()
   }, [])
-  const handleSheetChanges = useCallback((index: number) => {}, [])
+
+  const handlePresentModalHabitMenu = useCallback(() => {
+    habitDetailsModalRef.current?.present()
+  }, [])
+  //send data to store
   const handleCreateHabit = () => {
     const habit = {
       name,
@@ -42,49 +37,20 @@ const TodayScreen = observer((): JSX.Element => {
       occurrences: parseInt(occurrences),
     }
     habitStore.createHabit(habit)
+    //TODO close modal
   }
 
   return (
     <BottomSheetModalProvider>
-      <ScrollView>
+      <ScrollView style={styles.container}>
         <Text>Today Screen</Text>
         {habitStore.habits.map((habit, index) => (
-          <View key={habit.id}>
-            <Text>
-              {habit.name} {habit.occurrences}
-            </Text>
-            <Button title="add CompletionDates" />
-          </View>
+          <HabitCard onLongPress={handlePresentModalHabitMenu} key={index} />
         ))}
-        <View style={styles.container}>
+        <View>
           <Button onPress={handlePresentModalPress} title="Present Modal" />
-          <BottomSheetModal
-            ref={bottomSheetModalRef}
-            index={1}
-            snapPoints={snapPoints}
-            onChange={handleSheetChanges}
-          >
-            <View style={styles.contentContainer}>
-              <Text>Awesome 🎉</Text>
-              <TextInput
-                placeholder={'name'}
-                value={name}
-                onChangeText={setName}
-              />
-              <TextInput
-                placeholder={'numberperWeek'}
-                keyboardType="numeric"
-                value={occurrences}
-                onChangeText={setOccurrences}
-              />
-              <TextInput
-                placeholder={'color'}
-                value={color}
-                onChangeText={setColor}
-              />
-              <Button onPress={handleCreateHabit} title="Create Habit" />
-            </View>
-          </BottomSheetModal>
+          <CreateHabitModal ref={createHabitModalRef} />
+          <HabitDetailsModal ref={habitDetailsModalRef} />
         </View>
       </ScrollView>
     </BottomSheetModalProvider>
@@ -95,12 +61,8 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-    justifyContent: 'center',
-    backgroundColor: 'grey',
-  },
-  contentContainer: {
-    flex: 1,
-    alignItems: 'center',
+
+    backgroundColor: 'white',
   },
 })
 
