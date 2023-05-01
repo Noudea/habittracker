@@ -9,6 +9,10 @@ import { habitStore } from '../../infrastructure/store/HabitStore'
 import HabitCard from '../components/organisms/HabitCard'
 import CreateHabitModal from '../components/organisms/CreateHabitModal'
 import HabitDetailsModal from '../components/organisms/HabitDetailsModal'
+import { CircularProgressBase } from 'react-native-circular-progress-indicator'
+import MultipleCircularProgress from '../components/organisms/MultipleCircularProgress'
+import CircularProgress from '../components/organisms/MultipleCircularProgress'
+import RecursiveComponent from '../components/organisms/RecursiveComponent'
 
 const TodayScreen = observer((): JSX.Element => {
   const [name, setName] = useState('')
@@ -40,9 +44,36 @@ const TodayScreen = observer((): JSX.Element => {
     //TODO close modal
   }
 
+  const habsTest = [
+    {
+      indexNbr: 0,
+      color: '#e84118',
+    },
+    {
+      indexNbr: 1,
+      color: '#0800e6',
+    },
+    {
+      indexNbr: 2,
+      color: '#02e60f',
+    },
+  ]
+
   return (
     <BottomSheetModalProvider>
       <ScrollView style={styles.container}>
+        <View
+          style={{
+            justifyContent: 'center',
+            alignItems: 'center',
+            padding: 24,
+            marginBottom: 20,
+          }}
+        >
+          <MultipleCircularProgress habsTest={habsTest} level={3} />
+        </View>
+
+        {/*<RecursiveComponent level={3} />*/}
         <Text>Today Screen</Text>
         {habitStore.habits.map((habit, index) => (
           <HabitCard onLongPress={handlePresentModalHabitMenu} key={index} />

@@ -8,6 +8,7 @@ module.exports = {
     'src/**/*.{js,jsx,ts,tsx}',
     '!src/index.{js,jsx,ts,tsx}',
   ],
-
+  // transformIgnorePatterns: ['/node_modules/(?!react-native-redash)/'],
+  testMatch: ['**/__tests__/**/*.test.ts(x)?'],
   testPathIgnorePatterns: ['/__tests__/mocks/'],
 }

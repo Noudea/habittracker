@@ -1,8 +1,10 @@
-import { View, Text, StyleSheet, TouchableOpacity } from 'react-native'
+import { View, Text, StyleSheet, TouchableOpacity, Button } from 'react-native'
+import { CircularProgressBase } from 'react-native-circular-progress-indicator'
 
 import { useState } from 'react'
 
 const HabitCard = ({ onLongPress }): JSX.Element => {
+  const [radiusValue, setRadiusValue] = useState(25)
   const OpenModalHabitOptions = () => {
     console.log('onLongPRess')
     onLongPress()
@@ -17,6 +19,7 @@ const HabitCard = ({ onLongPress }): JSX.Element => {
       borderRadius: 10,
       flexDirection: 'row',
       marginBottom: 10,
+      height: 80,
     },
     habitName: {
       fontSize: 20,
@@ -26,7 +29,9 @@ const HabitCard = ({ onLongPress }): JSX.Element => {
       width: '70%',
     },
     progressContainer: {
-      width: '30%',
+      flex: 1,
+      justifyContent: 'center',
+      alignItems: 'flex-end',
     },
     detailsContainer: {
       flexDirection: 'row',
@@ -35,7 +40,9 @@ const HabitCard = ({ onLongPress }): JSX.Element => {
 
   return (
     <TouchableOpacity
-      onPress={() => console.log('Short press')}
+      onPress={() => {
+        console.log('Short press')
+      }}
       onLongPress={() => {
         OpenModalHabitOptions()
       }}
@@ -50,7 +57,24 @@ const HabitCard = ({ onLongPress }): JSX.Element => {
         </View>
       </View>
       <View style={styles.progressContainer}>
-        <Text>RoundIcon</Text>
+        <CircularProgressBase
+          activeStrokeWidth={10}
+          inActiveStrokeWidth={10}
+          inActiveStrokeOpacity={0.2}
+          initialValue={0}
+          value={radiusValue}
+          radius={25}
+          activeStrokeColor={'#e84118'}
+          inActiveStrokeColor={'#e84118'}
+        >
+          <Text>+</Text>
+          {/*<Button*/}
+          {/*  title={'25%'}*/}
+          {/*  onPress={() => {*/}
+          {/*    console.log('button pressed')*/}
+          {/*  }}*/}
+          {/*/>*/}
+        </CircularProgressBase>
       </View>
     </TouchableOpacity>
   )
