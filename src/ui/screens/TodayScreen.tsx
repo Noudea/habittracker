@@ -1,5 +1,5 @@
 import { Text, ScrollView, Button, View, StyleSheet } from 'react-native'
-import React, { useCallback, useRef, useState } from 'react'
+import React, { useCallback, useEffect, useRef, useState } from 'react'
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -13,6 +13,7 @@ import { CircularProgressBase } from 'react-native-circular-progress-indicator'
 import MultipleCircularProgress from '../components/organisms/MultipleCircularProgress'
 import CircularProgress from '../components/organisms/MultipleCircularProgress'
 import RecursiveComponent from '../components/organisms/RecursiveComponent'
+import LineCalendar from '../components/organisms/LineCalendar'
 
 const TodayScreen = observer((): JSX.Element => {
   const [name, setName] = useState('')
@@ -62,6 +63,7 @@ const TodayScreen = observer((): JSX.Element => {
   return (
     <BottomSheetModalProvider>
       <ScrollView style={styles.container}>
+        <LineCalendar />
         <View
           style={{
             justifyContent: 'center',
@@ -70,11 +72,15 @@ const TodayScreen = observer((): JSX.Element => {
             marginBottom: 20,
           }}
         >
-          <MultipleCircularProgress habsTest={habsTest} level={3} />
+          <MultipleCircularProgress habits={habsTest} />
         </View>
 
         {/*<RecursiveComponent level={3} />*/}
-        <Text>Today Screen</Text>
+        <Text>Today</Text>
+        {habitStore.habits.map((habit, index) => (
+          <HabitCard onLongPress={handlePresentModalHabitMenu} key={index} />
+        ))}
+        <Text>This week</Text>
         {habitStore.habits.map((habit, index) => (
           <HabitCard onLongPress={handlePresentModalHabitMenu} key={index} />
         ))}
@@ -92,7 +98,6 @@ const styles = StyleSheet.create({
   container: {
     flex: 1,
     padding: 24,
-
     backgroundColor: 'white',
   },
 })

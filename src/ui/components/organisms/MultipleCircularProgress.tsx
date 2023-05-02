@@ -1,32 +1,24 @@
 import { CircularProgressBase } from 'react-native-circular-progress-indicator'
 
-interface Props {
-  level: number
-  habsTest: any
-}
-
 const props = {
   activeStrokeWidth: 10,
   inActiveStrokeWidth: 10,
   inActiveStrokeOpacity: 0.2,
 }
 
-const MultipleCircularProgress = ({ level, habsTest }: Props): JSX.Element => {
-  if (habsTest.length != 0) {
-    console.log('habsTest', habsTest)
-    console.log('habsTest', habsTest.length)
-    // const last = habsTest.pop()
-
-    habsTest.splice(-1, 1)
+const MultipleCircularProgress = ({ habits }: { habits: any }): JSX.Element => {
+  if (habits.length != 0) {
+    const currentHabit = habits.pop()
+    //inverse = habits.shift()
     return (
       <CircularProgressBase
         {...props}
         value={80}
-        radius={100 - level * 10}
-        activeStrokeColor={'#e84118'}
-        inActiveStrokeColor={'#e84118'}
+        radius={100 - habits.length * 10}
+        activeStrokeColor={currentHabit.color}
+        inActiveStrokeColor={currentHabit.color}
       >
-        <MultipleCircularProgress level={level - 1} habsTest={habsTest} />
+        <MultipleCircularProgress habits={habits} />
       </CircularProgressBase>
     )
   }
