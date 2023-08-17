@@ -3,7 +3,11 @@ import { CircularProgressBase } from 'react-native-circular-progress-indicator'
 
 import { useState } from 'react'
 
-const HabitCard = ({ onLongPress }): JSX.Element => {
+interface Props {
+  onLongPress: () => void
+}
+
+const HabitCard = ({ onLongPress }: Props): JSX.Element => {
   const [radiusValue, setRadiusValue] = useState(25)
   const OpenModalHabitOptions = () => {
     console.log('onLongPRess')

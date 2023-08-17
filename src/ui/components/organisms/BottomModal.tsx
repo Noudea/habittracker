@@ -2,20 +2,22 @@ import { View, Text, TextInput, Button, StyleSheet } from 'react-native'
 import { BottomSheetModal } from '@gorhom/bottom-sheet'
 import React, { forwardRef, useCallback, useMemo, useRef } from 'react'
 
-const CreateHabitModal = forwardRef((props, ref) => {
+interface BottomModalProps {
+  snapPoints: string[]
+  content: React.ReactNode
+}
+
+const BottomModal = forwardRef((props: BottomModalProps, ref) => {
   // variables
-  const snapPoints = useMemo(() => ['100%', '100%'], [])
 
   return (
     <BottomSheetModal
       ref={ref}
       index={1}
-      snapPoints={snapPoints}
+      snapPoints={props.snapPoints}
       // onChange={handleSheetChanges}
     >
-      <View style={styles.contentContainer}>
-        <Text>Awesome Create Habit 🎉</Text>
-      </View>
+      {props.content}
     </BottomSheetModal>
   )
 })
@@ -33,4 +35,4 @@ const styles = StyleSheet.create({
   },
 })
 
-export default CreateHabitModal
+export default BottomModal

@@ -15,9 +15,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-               BuildableName = "habitTracker.app"
-               BlueprintName = "habitTracker"
-               ReferencedContainer = "container:habitTracker.xcodeproj">
+               BuildableName = "appHabitTracker.app"
+               BlueprintName = "appHabitTracker"
+               ReferencedContainer = "container:appHabitTracker.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -33,9 +33,9 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "00E356ED1AD99517003FC87E"
-               BuildableName = "habitTrackerTests.xctest"
-               BlueprintName = "habitTrackerTests"
-               ReferencedContainer = "container:habitTracker.xcodeproj">
+               BuildableName = "appHabitTrackerTests.xctest"
+               BlueprintName = "appHabitTrackerTests"
+               ReferencedContainer = "container:appHabitTracker.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
@@ -55,9 +55,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "habitTracker.app"
-            BlueprintName = "habitTracker"
-            ReferencedContainer = "container:habitTracker.xcodeproj">
+            BuildableName = "appHabitTracker.app"
+            BlueprintName = "appHabitTracker"
+            ReferencedContainer = "container:appHabitTracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>
@@ -72,9 +72,9 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "13B07F861A680F5B00A75B9A"
-            BuildableName = "habitTracker.app"
-            BlueprintName = "habitTracker"
-            ReferencedContainer = "container:habitTracker.xcodeproj">
+            BuildableName = "appHabitTracker.app"
+            BlueprintName = "appHabitTracker"
+            ReferencedContainer = "container:appHabitTracker.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </ProfileAction>

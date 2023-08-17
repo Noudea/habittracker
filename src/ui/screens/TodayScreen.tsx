@@ -1,5 +1,5 @@
 import { Text, ScrollView, Button, View, StyleSheet } from 'react-native'
-import React, { useCallback, useEffect, useRef, useState } from 'react'
+import React, { useCallback, useMemo, useRef, useState } from 'react'
 import {
   BottomSheetModal,
   BottomSheetModalProvider,
@@ -7,13 +7,15 @@ import {
 import { observer } from 'mobx-react-lite'
 import { habitStore } from '../../infrastructure/store/HabitStore'
 import HabitCard from '../components/organisms/HabitCard'
-import CreateHabitModal from '../components/organisms/CreateHabitModal'
+import CreateHabitModal from '../components/organisms/BottomModal'
 import HabitDetailsModal from '../components/organisms/HabitDetailsModal'
 import { CircularProgressBase } from 'react-native-circular-progress-indicator'
 import MultipleCircularProgress from '../components/organisms/MultipleCircularProgress'
 import CircularProgress from '../components/organisms/MultipleCircularProgress'
 import RecursiveComponent from '../components/organisms/RecursiveComponent'
 import LineCalendar from '../components/organisms/LineCalendar'
+import BottomModal from '../components/organisms/BottomModal'
+import CreateHabit from '../components/organisms/CreateHabit'
 
 const TodayScreen = observer((): JSX.Element => {
   const [name, setName] = useState('')
@@ -86,7 +88,12 @@ const TodayScreen = observer((): JSX.Element => {
         ))}
         <View>
           <Button onPress={handlePresentModalPress} title="Present Modal" />
-          <CreateHabitModal ref={createHabitModalRef} />
+          <BottomModal
+            content={<CreateHabit />}
+            snapPoints={useMemo(() => ['100%', '100%'], [])}
+            ref={createHabitModalRef}
+          />
+          {/*//TODO Replace Habitdetailsmodal with BottomModal*/}
           <HabitDetailsModal ref={habitDetailsModalRef} />
         </View>
       </ScrollView>
@@ -97,7 +104,7 @@ const TodayScreen = observer((): JSX.Element => {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    padding: 24,
+    // padding: 24,
     backgroundColor: 'white',
   },
 })
